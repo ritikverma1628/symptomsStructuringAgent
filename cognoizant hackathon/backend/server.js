@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { OpenAI } from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 dotenv.config();
 
@@ -11,9 +11,7 @@ app.use(express.json());
 
 const port = process.env.PORT || 5000;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'dummy_key',
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy_key');
 
 const PROMPT = `You are a medical assistant AI.
 Extract structured data from patient symptoms.
@@ -54,9 +52,9 @@ app.post('/api/analyze', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Text input is too long' });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.GEMINI_API_KEY) {
       // Mocked response if no real key is provided
-      console.log('No OpenAI API Key found, returning mock data.');
+      console.log('No Gemini API Key found, returning mock data.');
       // Simulating a delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       return res.json({
@@ -72,17 +70,17 @@ app.post('/api/analyze', async (req, res) => {
       });
     }
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: PROMPT },
-        { role: "user", content: text }
-      ],
-      temperature: 0.2,
-      response_format: { type: "json_object" }
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: PROMPT,
+      generationConfig: {
+        temperature: 0.2,
+        responseMimeType: "application/json",
+      }
     });
 
-    const outputText = response.choices[0].message.content;
+    const result = await model.generateContent(text);
+    const outputText = result.response.text();
     const parsedData = JSON.parse(outputText);
 
     res.json({ success: true, data: parsedData });
