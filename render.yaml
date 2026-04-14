@@ -3,9 +3,8 @@ services:
     name: ai-symptom-backend
     env: node
     plan: free
-    rootDir: cognoizant hackathon/backend
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd "cognoizant hackathon/backend" && npm install
+    startCommand: cd "cognoizant hackathon/backend" && node server.js
     envVars:
       - key: GEMINI_API_KEY
         sync: false
@@ -16,9 +15,8 @@ services:
     name: ai-symptom-frontend
     env: static
     plan: free
-    rootDir: cognoizant hackathon/frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    buildCommand: cd "cognoizant hackathon/frontend" && npm install && npm run build
+    staticPublishPath: "cognoizant hackathon/frontend/dist"
     envVars:
       - key: NODE_VERSION
         value: "20"
