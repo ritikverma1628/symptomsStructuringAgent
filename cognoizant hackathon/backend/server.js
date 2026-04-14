@@ -71,7 +71,7 @@ app.post('/api/analyze', async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-pro",
       systemInstruction: PROMPT,
       generationConfig: {
         temperature: 0.2,
