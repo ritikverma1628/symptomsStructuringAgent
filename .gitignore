@@ -1,0 +1,40 @@
+# Logs
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Environment Variables (Confidential data)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+
+# Build outputs
+dist/
+build/
+out/
+cognoizant hackathon/frontend/dist/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
