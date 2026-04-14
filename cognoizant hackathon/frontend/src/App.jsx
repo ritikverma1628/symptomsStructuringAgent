@@ -182,11 +182,15 @@ function App() {
                       <Stethoscope className="w-4 h-4" />
                       Possible Conditions
                     </h3>
-                    <ul className="list-disc pl-5 space-y-1 text-slate-700 font-medium">
-                      {result.possible_conditions?.map((cond, idx) => (
-                        <li key={idx}>{cond}</li>
-                      ))}
-                    </ul>
+                    {(!result.possible_conditions || result.possible_conditions.length === 0) ? (
+                      <p className="text-sm text-slate-500 italic">Not enough symptoms provided to infer conditions.</p>
+                    ) : (
+                      <ul className="list-disc pl-5 space-y-1 text-slate-700 font-medium">
+                        {result.possible_conditions.map((cond, idx) => (
+                          <li key={idx}>{cond}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
 
                   <div className="bg-indigo-50 p-5 rounded-2xl border border-indigo-100">
