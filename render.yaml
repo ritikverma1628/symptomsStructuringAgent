@@ -9,6 +9,8 @@ services:
     envVars:
       - key: GEMINI_API_KEY
         sync: false
+      - key: NODE_VERSION
+        value: "20"
 
   - type: web
     name: ai-symptom-frontend
@@ -18,6 +20,8 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: VITE_API_URL
         fromService:
           type: web
