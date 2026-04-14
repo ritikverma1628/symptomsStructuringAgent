@@ -3,7 +3,7 @@ services:
     name: ai-symptom-backend
     env: node
     plan: free
-    rootDir: backend
+    rootDir: cognoizant hackathon/backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -14,7 +14,7 @@ services:
     name: ai-symptom-frontend
     env: static
     plan: free
-    rootDir: frontend
+    rootDir: cognoizant hackathon/frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
